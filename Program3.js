@@ -1,75 +1,18 @@
-db.members.insertMany([
-    {
-        member_id: "M001",
-        name: "Amit Sharma",
-        membership_type: "Premium",
-        join_date: new Date("2024-06-15"),
-        workouts: ["Yoga", "Cardio", "Strength Training"],
-        total_visits: 45,
-        last_visit_date: new Date("2025-05-01"),
-        monthly_fee: 2500
-    },
-    {
-        member_id: "M002",
-        name: "Priya Patel",
-        membership_type: "Elite",
-        join_date: new Date("2024-03-10"),
-        workouts: ["Yoga", "Pilates", "Swimming"],
-        total_visits: 80,
-        last_visit_date: new Date("2025-05-03"),
-        monthly_fee: 5000
-    },
-    {
-        member_id: "M003",
-        name: "Rahul Verma",
-        membership_type: "Basic",
-        join_date: new Date("2025-02-20"),
-        workouts: ["Cardio"],
-        total_visits: 1,
-        last_visit_date: new Date("2025-02-21"),
-        monthly_fee: 1000
-    },
-    {
-        member_id: "M004",
-        name: "Sneha Gupta",
-        membership_type: "Premium",
-        join_date: new Date("2024-11-05"),
-        workouts: ["Zumba", "Yoga", "Cardio"],
-        total_visits: 35,
-        last_visit_date: new Date("2025-04-28"),
-        monthly_fee: 2500
-    },
-    {
-        member_id: "M005",
-        name: "Karan Singh",
-        membership_type: "Basic",
-        join_date: new Date("2025-04-01"),
-        workouts: ["Strength Training"],
-        total_visits: 1,
-        last_visit_date: new Date("2025-04-02"),
-        monthly_fee: 1000
-    }
+db.tasks.insertOne({
+  task_id: "T001",
+  title: "Buy groceries",
+  description: "Purchase vegetables and fruits",
+  due_date: new Date("2026-05-05"),
+  priority: "High",
+  is_completed: false
+})
+db.tasks.insertMany([
+  { task_id: "T002", title: "Submit report", description: "Monthly finance report", due_date: new Date("2026-05-10"), priority: "Medium", is_completed: false },
+  { task_id: "T003", title: "Call plumber", description: "Fix the kitchen sink", due_date: new Date("2026-05-01"), priority: "Low", is_completed: true },
+  { task_id: "T004", title: "Gym session", description: "Attend daily evening workout", due_date: new Date("2026-05-02"), priority: "High", is_completed: false },
+  { task_id: "T005", title: "Pay electricity bill", description: "Via UPI", due_date: new Date("2026-05-04"), priority: "Medium", is_completed: false },
+  { task_id: "T006", title: "Book doctor appointment", description: "Annual health checkup", due_date: new Date("2026-05-06"), priority: "High", is_completed: true }
 ])
-db.members.find({
-    membership_type: "Premium",
-    total_visits: { $gt: 20 }
-})
-db.members.updateMany(
-    { join_date: { $lt: new Date("2025-01-01") } },
-    { $mul: { monthly_fee: 0.85 } }
-)
-db.members.deleteMany({
-    membership_type: "Basic",
-    total_visits: { $lt: 2 }
-})
-db.members.find({
-    workouts: "Yoga"
-})
-Or using the explicit $in operator:
-
-javascript
-
-
-db.members.find({
-    workouts: { $in: ["Yoga"] }
-})
+db.tasks.find({ is_completed: false })
+db.tasks.find({}, { _id: 0, title: 1, due_date: 1 })
+db.tasks.deleteOne({ task_id: "T003" })
