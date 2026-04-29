@@ -1,86 +1,18 @@
-db.players.insertMany([
-    {
-        player_id: "PL001",
-        name: "Virat Kohli",
-        age: 36,
-        role: "Batsman",
-        matches_played: 275,
-        runs_scored: 13500,
-        wickets_taken: 4,
-        nationality: "India"
-    },
-    {
-        player_id: "PL002",
-        name: "Ravindra Jadeja",
-        age: 35,
-        role: "All-rounder",
-        matches_played: 200,
-        runs_scored: 3200,
-        wickets_taken: 250,
-        nationality: "India"
-    },
-    {
-        player_id: "PL003",
-        name: "Jos Buttler",
-        age: 34,
-        role: "Wicketkeeper",
-        matches_played: 180,
-        runs_scored: 5500,
-        wickets_taken: 0,
-        nationality: "England"
-    },
-    {
-        player_id: "PL004",
-        name: "Pat Cummins",
-        age: 31,
-        role: "Bowler",
-        matches_played: 150,
-        runs_scored: 800,
-        wickets_taken: 280,
-        nationality: "Australia"
-    },
-    {
-        player_id: "PL005",
-        name: "Shakib Al Hasan",
-        age: 37,
-        role: "All-rounder",
-        matches_played: 240,
-        runs_scored: 7500,
-        wickets_taken: 300,
-        nationality: "Bangladesh"
-    }
+db.contacts.insertOne({
+  contact_id: "C001",
+  first_name: "Amit",
+  last_name: "Sharma",
+  phone: "9876543210",
+  email: "amit@example.com",
+  city: "Delhi"
+})
+db.contacts.insertMany([
+  { contact_id: "C002", first_name: "Priya", last_name: "Patel", phone: "9090909090", email: "priya@gmail.com", city: "Mumbai" },
+  { contact_id: "C003", first_name: "Rahul", last_name: "Verma", phone: "8989898989", email: "rahul@gmail.com", city: "Chennai" },
+  { contact_id: "C004", first_name: "Simran", last_name: "Kaur", phone: "8080808080", email: "simran@gmail.com", city: "Mumbai" },
+  { contact_id: "C005", first_name: "John", last_name: "Doe", phone: "7070707070", email: "john@gmail.com", city: "Pune" },
+  { contact_id: "C006", first_name: "Sneha", last_name: "Rao", phone: "6060606060", email: "sneha@gmail.com", city: "Bangalore" }
 ])
-db.players.find({
-    $and: [
-        { runs_scored: { $gt: 2000 } },
-        { wickets_taken: { $gt: 50 } }
-    ]
-})
-db.players.updateMany(
-    { nationality: "India" },
-    { $inc: { runs_scored: 100 } }
-)
-db.players.deleteOne({
-    $and: [
-        { player_id: "PL006" },
-        { matches_played: 0 }
-    ]
-})
-Or more simply:
-
-javascript
-
-
-db.players.deleteOne({
-    player_id: "PL006",
-    matches_played: 0
-})
-db.players.find(
-    {},
-    {
-        _id: 0,
-        name: 1,
-        role: 1,
-        runs_scored: 1
-    }
-).sort({ runs_scored: -1 }) 
+db.contacts.find({ city: "Mumbai" })
+db.contacts.find({}, { _id: 0, first_name: 1, last_name: 1, phone: 1 })
+db.contacts.deleteOne({ contact_id: "C003" })
